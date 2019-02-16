@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "jest": "^24.1.0",
     "vue": "^2.5.22",
     "vue-router": "^3.0.1"
   },

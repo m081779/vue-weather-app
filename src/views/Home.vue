@@ -44,8 +44,8 @@ export default {
 		searchLocation(location) {
 			this.clearResults();
 			let baseUrl = `https://api.openweathermap.org/data/2.5/weather?&appid=efab3183191d888ebe50a33684084a10&`
-			const zipcode = /^\d{5}(?:[-\s]\d{4})?$/;
-			if (zipcode.test(location)){
+			const testForZipcode = /^\d{5}(?:[-\s]\d{4})?$/;
+			if (testForZipcode.test(location)){
 				baseUrl += `zip=${location}`
 			} else {
 				baseUrl += `q=${location}`
