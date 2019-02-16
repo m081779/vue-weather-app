@@ -1,12 +1,12 @@
 <template>
-  <div class="home">
+  <div id="home">
     <LocationSearch v-on:search-location="searchLocation" v-on:error="addError"/>
 	<p class="error_message">{{errMessage}}</p>
 	<div class="weather_info" v-if="isFound">
 		<p>City: {{city}}</p>
 		<p>Humidity: {{humidity}}</p>
 		<p>Pressure: {{pressure}}</p>
-		<p>Temp:{{temp}}</p>
+		<p>Temp: {{temp}}</p>
 		<p>Description: {{description}}</p>
 		<p>Icon: {{icon}}</p>
 		<p>Main: {{main}}</p>
@@ -54,7 +54,7 @@ export default {
 				axios
 				.get(baseUrl)
 				.then(res => {
-					console.log('res: ', res);
+					// console.log('res: ', res);
 					const { main, weather, wind, name } = res.data;
 					this.isFound = true;
 					this.city = name;
@@ -66,7 +66,7 @@ export default {
 					this.main = weather[0].main;
 					this.windSpeed = wind.speed;
 					this.direction = wind.deg;
-				}).catch(err => {
+				}).catch(() => {
 					this.isFound = false;
 					this.errMessage = 'No location found, please try again.'
 				});
@@ -92,6 +92,15 @@ export default {
 </script>
 
 <style scoped>
+#home {
+	background: #ddd;
+	border-radius: 5px;
+	padding: 20px;
+	border: 1px solid #777;
+	min-height: 300px;
+	width: 50%;
+	margin: 50px auto;
+}
 .error_message {
 	color: red;
 }

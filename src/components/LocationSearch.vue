@@ -1,7 +1,7 @@
 <template>
 	<form class="location_search_form" @submit="submitSearch">
-		<input type="text" name="location" placeholder="Enter City or Zipcode..." v-model="location">
-		<input type="submit" value="submit">
+		<input class="location_input" type="text" name="location" placeholder="Enter City or Zipcode..." v-model="location">
+		<input class="submit_button" type="submit" value="Submit">
 	</form>
 </template>
 
@@ -19,9 +19,7 @@ export default {
 			const testForZipcode = /^\d{5}(?:[-\s]\d{4})?$/;
 			const testForText = /^[a-zA-Z\s]*$/
 			const location = this.location.trim();
-			console.log()
 			if (location && (testForZipcode.test(location) || testForText.test(location))){
-				console.log('firing');
 				this.$emit('search-location', this.location);
 				this.$emit('error', '');
 			} else {
@@ -34,5 +32,22 @@ export default {
 </script>
 
 <style scoped>
-
+.submit_button {
+	height: 30px;
+	padding: 0px 10px;
+	background: slateblue;
+	color: white;
+	outline: none;
+	border: 1px solid navy;
+	font-size: 16px;
+	border-bottom-right-radius: 5px; 
+	border-top-right-radius: 5px; 
+}
+.location_input {
+	height: 30px;
+	padding: 0px 10px;
+	width: 50%;
+	border-bottom-left-radius: 5px; 
+	border-top-left-radius: 5px; 
+}
 </style>
