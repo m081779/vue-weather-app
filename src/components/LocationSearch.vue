@@ -46,7 +46,7 @@ export default {
 .location_input {
 	height: 30px;
 	padding: 0px 10px;
-	width: 50%;
+	width: 30%;
 	border-bottom-left-radius: 5px; 
 	border-top-left-radius: 5px; 
 }
