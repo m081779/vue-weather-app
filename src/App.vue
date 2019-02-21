@@ -1,16 +1,36 @@
 <template>
 	<div id="app">
-		<header>
-			<div class="weather">Weather App</div>
-			<ul id="nav">
-				<li><router-link to="/">Home</router-link></li> 
-				<li>|</li>
-				<li><router-link to="/about">About</router-link></li>
-			</ul>
-		</header>
-		<router-view/>
+		<Header v-on:add-error="addError" v-on:search-location="setSearchLocation"/>
+		<router-view  v-bind="searchLocation"/>
 	</div>
 </template>
+
+<script>
+import Header from './components/Header.vue'
+export default {
+	name: 'App',
+	components: {
+		Header
+	},
+	data() {
+		return {
+			error: '',
+			searchLocation: {}
+		}
+	},
+	methods: {
+		addError(error) {
+			console.log('error: ', error);
+			this.error = error;
+		},
+		setSearchLocation(searchLocation) {
+			console.log('searchLocation: ', searchLocation);
+			this.searchLocation = { searchLocation };
+		}
+	}
+}
+</script>
+
 
 <style>
 	html, body {
@@ -23,7 +43,6 @@
 		font-family: 'Avenir', Helvetica, Arial, sans-serif;
 		-webkit-font-smoothing: antialiased;
 		-moz-osx-font-smoothing: grayscale;
-		/* text-align: center; */
 		color: #2c3e50;
 		background: lightblue;
 		height: 100%;
