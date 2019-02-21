@@ -1,32 +1,34 @@
 <template>
-  <div id="home">
-    <LocationSearch v-on:search-location="searchLocation" v-on:error="addError"/>
-	<p class="error_message">{{errMessage}}</p>
-	<div class="weather_info" v-if="isFound">
-		<p>City: {{city}}</p>
-		<p>Humidity: {{humidity}}</p>
-		<p>Pressure: {{pressure}}</p>
-		<p>Temp: {{temp}}</p>
-		<p>Description: {{description}}</p>
-		<p>Icon: {{icon}}</p>
-		<p>Main: {{main}}</p>
-		<p>Wind Speed: {{windSpeed}}</p>
-		<p>Direction: {{direction}}</p>
+<div>
+	<div id="home" v-if="isFound">
+		<div v-if="isLoading">Loading...</div>
+		<div class="weather_info" v-if="!isLoading">
+			<p class="error_message">{{errMessage}}</p>
+			<p>City: {{city}}</p>
+			<p>Humidity: {{humidity}}</p>
+			<p>Pressure: {{pressure}}</p>
+			<p>Temp: {{temp}}</p>
+			<p>Description: {{description}}</p>
+			<p>Icon: {{icon}}</p>
+			<p>Main: {{main}}</p>
+			<p>Wind Speed: {{windSpeed}}</p>
+			<p>Direction: {{direction}}</p>
+		</div>
 	</div>
-  </div>
+</div>
 </template>
 
 <script>
 import axios from 'axios';
-import LocationSearch from '@/components/LocationSearch.vue'
 
 export default {
 	name: 'home',
 	components: {
-		LocationSearch
 	},
+	props: ['searchLocation'],
 	data() {
 		return {
+			isLoading: undefined,
 			isFound: false,
 			city: '',
 			humidity: '',
@@ -40,8 +42,19 @@ export default {
 			errMessage: ''
 		}
 	},
+	watch: {
+		searchLocation: function(newVal, oldVal) {
+			
+			if (newVal !== oldVal){
+				this.queryLocation(newVal);
+			}
+		}
+	},
 	methods: {
-		searchLocation(location) {
+		queryLocation(location) {
+			console.log('locationasdfasdfas: ', location);
+
+			this.isLoading = true;
 			this.clearResults();
 			let baseUrl = `https://api.openweathermap.org/data/2.5/weather?&appid=efab3183191d888ebe50a33684084a10&`
 			const testForZipcode = /^\d{5}(?:[-\s]\d{4})?$/;
@@ -66,7 +79,9 @@ export default {
 					this.main = weather[0].main;
 					this.windSpeed = wind.speed;
 					this.direction = wind.deg;
+					this.isLoading = false;
 				}).catch(() => {
+					this.isLoading = false;
 					this.isFound = false;
 					this.errMessage = 'No location found, please try again.'
 				});
