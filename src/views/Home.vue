@@ -25,7 +25,7 @@ export default {
 	name: 'home',
 	components: {
 	},
-	props: ['searchLocation'],
+	props: ['myProps'],
 	data() {
 		return {
 			isLoading: undefined,
@@ -43,10 +43,15 @@ export default {
 		}
 	},
 	watch: {
-		searchLocation: function(newVal, oldVal) {
-			
-			if (newVal !== oldVal){
-				this.queryLocation(newVal);
+		myProps: function(newVal, oldVal) {
+			if (newVal.searchLocation !== oldVal.searchLocation){
+				this.queryLocation(newVal.searchLocation);
+				newVal.searchLocation = '';
+				oldVal.searchLocation = '';
+			}
+			if (newVal.errMessage !== oldVal.errMessage){
+				this.errMessage = newVal.errMessage;
+
 			}
 		}
 	},
@@ -67,9 +72,7 @@ export default {
 				axios
 				.get(baseUrl)
 				.then(res => {
-					// console.log('res: ', res);
 					const { main, weather, wind, name } = res.data;
-					this.isFound = true;
 					this.city = name;
 					this.humidity = main.humidity;
 					this.pressure = main.pressure;
@@ -80,6 +83,7 @@ export default {
 					this.windSpeed = wind.speed;
 					this.direction = wind.deg;
 					this.isLoading = false;
+					this.isFound = true;
 				}).catch(() => {
 					this.isLoading = false;
 					this.isFound = false;
@@ -101,6 +105,7 @@ export default {
 			this.main = '';
 			this.windSpeed = '';
 			this.direction = '';
+			this.errMessage = '';
 		}
 	}
 }

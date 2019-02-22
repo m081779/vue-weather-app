@@ -1,7 +1,7 @@
 <template>
 	<div id="app">
 		<Header v-on:add-error="addError" v-on:search-location="setSearchLocation"/>
-		<router-view  v-bind="searchLocation"/>
+		<router-view  :myProps="myProps"/>
 	</div>
 </template>
 
@@ -14,18 +14,15 @@ export default {
 	},
 	data() {
 		return {
-			error: '',
-			searchLocation: {}
+			myProps: {}
 		}
 	},
 	methods: {
-		addError(error) {
-			console.log('error: ', error);
-			this.error = error;
+		addError(errMessage) {
+			this.myProps = {...this.myProps, errMessage};
 		},
 		setSearchLocation(searchLocation) {
-			console.log('searchLocation: ', searchLocation);
-			this.searchLocation = { searchLocation };
+			this.myProps = { ...this.myProps, searchLocation };
 		}
 	}
 }

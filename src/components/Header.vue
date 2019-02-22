@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import LocationSearch from './LocationSearch'
+import LocationSearch from './LocationSearch';
 export default {
     name: 'Header',
     components: {
