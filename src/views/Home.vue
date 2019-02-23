@@ -9,7 +9,7 @@
 			<p>Pressure: {{pressure}}</p>
 			<p>Temp: {{temp}}</p>
 			<p>Description: {{description}}</p>
-			<p>Icon: {{icon}}</p>
+			<p>Icon: <img :src="'http://openweathermap.org/img/w/'+icon+'.png'"/></p>
 			<p>Main: {{main}}</p>
 			<p>Wind Speed: {{windSpeed}}</p>
 			<p>Direction: {{direction}}</p>
