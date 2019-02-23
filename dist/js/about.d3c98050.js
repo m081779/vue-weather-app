@@ -1,0 +1,2 @@
+(window["webpackJsonp"]=window["webpackJsonp"]||[]).push([["about"],{"01ba":function(e,n,t){"use strict";t.r(n);var a=function(){var e=this,n=e.$createElement,t=e._self._c||n;return t("div",[e._v("five day forecast")])},u=[],c=t("2877"),l={},o=Object(c["a"])(l,a,u,!1,null,null,null);n["default"]=o.exports}}]);
+//# sourceMappingURL=about.d3c98050.js.map
